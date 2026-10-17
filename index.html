@@ -10,60 +10,82 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Asistencia TPC">
 <title>Asistencia TPC</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%231d4ed8'%3E%3Crect x='41' y='4' width='18' height='92' rx='3'/%3E%3Crect x='41' y='4' width='18' height='92' rx='3' transform='rotate(60 50 50)'/%3E%3Crect x='41' y='4' width='18' height='92' rx='3' transform='rotate(120 50 50)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="icon-192.png">
 <style>
-:root{--bg:#eaf0fb;--card:#fff;--ink:#0f1b33;--mute:#5a6b8c;--line:#d3ddf0;--brand:#1d4ed8;--brand2:#0b2a8a;--soft:#e3ebff;--warn:#c2410c;
---med:#2563eb;--enf:#0d9488;--tes:#ea580c;--gen:#7c3aed}
-@media(prefers-color-scheme:dark){:root{--bg:#0a1226;--card:#13203d;--ink:#e8eefc;--mute:#9fb0d3;--line:#25365c;--brand:#6c9bff;--brand2:#0a1a52;--soft:#1b2c55;--warn:#ff9a62;
---med:#6c9bff;--enf:#2dd4bf;--tes:#fb923c;--gen:#b794ff}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:88px}
-header{background:linear-gradient(135deg,var(--brand2),#1d4ed8 70%,#3b82f6);color:#fff;padding:16px 16px 18px;display:flex;gap:14px;align-items:center;border-radius:0 0 22px 22px;box-shadow:0 6px 18px rgba(29,78,216,.35)}
-header svg{width:60px;height:60px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
-header h1{margin:0;font-size:1.5rem;line-height:1.1}
-header p{margin:3px 0 0;font-size:.9rem;opacity:.92}
+:root{--bg:#eef2fb;--card:#fff;--ink:#0f1b33;--mute:#5a6b8c;--line:#dbe3f3;--brand:#1d4ed8;--brand2:#0b2a8a;--soft:#e8eeff;--warn:#c2410c;--red:#dc2626;--ok:#15803d;
+--med:#2563eb;--enf:#0d9488;--tes:#ea580c;--gen:#7c3aed;--sh:0 1px 2px rgba(15,27,51,.06),0 4px 14px rgba(15,27,51,.07)}
+@media(prefers-color-scheme:dark){:root{--bg:#0a1226;--card:#13203d;--ink:#e8eefc;--mute:#9fb0d3;--line:#25365c;--brand:#6c9bff;--brand2:#0a1a52;--soft:#1b2c55;--warn:#ff9a62;--red:#ff6b6b;--ok:#4ade80;
+--med:#6c9bff;--enf:#2dd4bf;--tes:#fb923c;--gen:#b794ff;--sh:0 1px 2px rgba(0,0,0,.3),0 4px 14px rgba(0,0,0,.25)}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.top{position:sticky;top:0;z-index:20;background:linear-gradient(135deg,var(--brand2),#1d4ed8 75%,#3b82f6);color:#fff;padding:calc(10px + env(safe-area-inset-top,0px)) 16px 12px;display:flex;gap:12px;align-items:center;box-shadow:0 4px 16px rgba(29,78,216,.35)}
+.top svg{width:38px;height:38px;flex:none}
+.top h1{margin:0;font-size:1.25rem;line-height:1.15}
+.top p{margin:0;font-size:.78rem;opacity:.85}
+.hoy{margin-left:auto;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:700;white-space:nowrap}
 main{max-width:780px;margin:0 auto;padding:16px 14px}
-section{display:none}section.on{display:block}
-h2{font-size:1.2rem;margin:4px 0 12px}
-h3.amb{font-size:.95rem;margin:18px 0 8px;color:var(--brand);display:flex;align-items:center;gap:8px}
-h3.amb::after{content:"";flex:1;height:2px;background:var(--line)}
+section{display:none}section.on{display:block;animation:in .2s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font-size:1.15rem;margin:4px 0 10px}
+h3.amb{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin:20px 0 8px;color:var(--brand);display:flex;align-items:center;gap:8px}
+h3.amb::after{content:"";flex:1;height:1px;background:var(--line)}
+h3.amb.dia{color:var(--warn)}
 .row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
-.chip{border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 15px;font:inherit;font-weight:600;cursor:pointer;min-height:44px}
+.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -14px 12px;padding:2px 14px}
+.scroll::-webkit-scrollbar{display:none}
+.chip{border:1.5px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 14px;font:inherit;font-size:.92rem;font-weight:600;cursor:pointer;min-height:40px;white-space:nowrap;flex:none;position:relative}
 .chip[aria-pressed=true]{background:var(--brand);color:#fff;border-color:var(--brand)}
-.day{flex:1;min-width:42px;padding:8px 2px;text-align:center;border-radius:12px}
-.go{--c:var(--gen);display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:9px;font:inherit;cursor:pointer;min-height:60px;box-shadow:0 2px 6px rgba(15,27,51,.08)}
+.day{flex:1;min-width:0;padding:8px 0;text-align:center;border-radius:12px;font-size:.95rem}
+.day.hoyd{border-color:var(--warn)}
+.day i{position:absolute;top:4px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--warn)}
+.seg{display:flex;background:var(--soft);border-radius:14px;padding:4px;gap:4px;margin-bottom:14px}
+.seg button{flex:1;border:0;background:none;color:var(--mute);font:inherit;font-weight:700;padding:9px 4px;border-radius:10px;cursor:pointer;min-height:42px}
+.seg button[aria-pressed=true]{background:var(--card);color:var(--brand);box-shadow:var(--sh)}
+.go{--c:var(--gen);display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);color:var(--ink);border:0;border-left:5px solid var(--c);border-radius:14px;padding:10px 12px;margin-bottom:8px;font:inherit;cursor:pointer;min-height:60px;box-shadow:var(--sh)}
 .go:active{transform:scale(.985)}
 .go[data-p="Médico"]{--c:var(--med)}.go[data-p="Enfermería"]{--c:var(--enf)}.go[data-p="TES"]{--c:var(--tes)}
-.ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:800;font-size:1.1rem}
+.ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--c);color:#fff;display:grid;place-items:center;font-weight:800}
 .go b{display:block;line-height:1.25}
-.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:3px}
-.tag{background:var(--soft);color:var(--ink);border-radius:7px;padding:1px 8px;font-size:.78rem;font-weight:600}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;align-items:center}
+.tag{background:var(--soft);color:var(--ink);border-radius:7px;padding:1px 8px;font-size:.75rem;font-weight:700}
 .tag.c{background:var(--c);color:#fff}
-input[type=search],select,input[type=number]{width:100%;padding:13px;font:inherit;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
-.med{background:var(--card);border:2px solid var(--line);border-left:7px solid var(--brand);border-radius:14px;padding:12px 14px;margin-bottom:10px}
-.med h3{margin:0;font-size:1.05rem;display:flex;justify-content:space-between;gap:8px}
-.n{background:var(--brand);color:#fff;border-radius:999px;padding:0 10px;font-size:.85rem;white-space:nowrap;height:24px;line-height:24px}
-.med small{color:var(--mute)}
-.med dl{margin:8px 0 0;display:grid;grid-template-columns:105px 1fr;gap:3px 10px}
-.med dt{color:var(--mute)}.med dd{margin:0}
+.tag.hr{background:var(--red);color:#fff}.tag.es{background:#7c3aed;color:#fff}
+input[type=search],select,input[type=number]{width:100%;padding:12px 14px;font:inherit;border:1.5px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+input[type=search]{margin-bottom:10px;box-shadow:var(--sh)}
+.med{background:var(--card);border-left:5px solid var(--brand);border-radius:14px;margin-bottom:8px;box-shadow:var(--sh)}
+.med.r1{border-left-color:var(--red)}.med.r2{border-left-color:#7c3aed}
+.med summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center;padding:11px 12px;min-height:56px}
+.med summary::-webkit-details-marker{display:none}
+.med summary::after{content:"›";font-size:1.5rem;color:var(--mute);transition:transform .15s;flex:none}
+.med[open] summary::after{transform:rotate(90deg)}
+.mn{flex:1;min-width:0}.mn b{display:block;line-height:1.25}
+.mn small{color:var(--mute);display:block;line-height:1.3}
+.bd{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:5px}
+.n{background:var(--brand);color:#fff;border-radius:999px;padding:0 9px;font-size:.8rem;font-weight:700;height:22px;line-height:22px;white-space:nowrap}
+.mb{padding:0 14px 14px;border-top:1px solid var(--line)}
+.mb dl{margin:8px 0 0;display:grid;grid-template-columns:96px 1fr;gap:6px 10px}
+.mb dt{color:var(--mute);font-size:.88rem;padding-top:1px}.mb dd{margin:0}
+.mb ul{margin:0;padding-left:18px}
 .pend{color:var(--warn)}
-.hi{background:var(--soft);border-radius:10px;padding:8px 10px;margin-top:8px}
-.note{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:.9rem;margin-bottom:12px}
-.alert{border-left:6px solid var(--warn)}
+.hi{background:var(--soft);border-radius:10px;padding:8px 10px;margin-top:8px;font-size:.92rem}
+.note{background:var(--soft);border-radius:12px;padding:10px 12px;font-size:.88rem;margin-bottom:12px}
+.alert{border-left:5px solid var(--warn)}
 .empty{color:var(--mute);padding:12px 2px}
-label{display:block;font-weight:600;margin:12px 0 4px}
+label{display:block;font-weight:600;margin:12px 0 4px;font-size:.92rem}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .res{background:linear-gradient(135deg,var(--brand2),var(--brand));color:#fff;border-radius:16px;padding:14px 16px;margin-top:14px}
-.res .big{font-size:1.9rem;font-weight:800;line-height:1.1}
+.res .big{font-size:2rem;font-weight:800;line-height:1.1}
 .res p{margin:6px 0 0}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:2px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0)}
-nav button{flex:1;border:0;background:none;color:var(--mute);font:inherit;font-size:.85rem;padding:9px 2px;min-height:60px;cursor:pointer;display:grid;gap:2px;justify-items:center}
-nav button span{font-size:1.35rem;line-height:1}
-nav button[aria-selected=true]{color:var(--brand);font-weight:800;box-shadow:inset 0 4px 0 var(--brand)}
+.res.ok{background:linear-gradient(135deg,#166534,#16a34a)}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:20;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(15,27,51,.08)}
+nav button{flex:1;border:0;background:none;color:var(--mute);font:inherit;font-size:.72rem;font-weight:600;padding:6px 2px;cursor:pointer;display:grid;gap:2px;justify-items:center;border-radius:14px}
+nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav button[aria-selected=true]{color:var(--brand);background:var(--soft);font-weight:800}
 :focus-visible{outline:3px solid var(--warn);outline-offset:2px}
-#toast{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:none;max-width:90%}
-@media(max-width:480px){.med dl{grid-template-columns:1fr}.med dt{margin-top:4px}}
-.chip.loc{min-height:36px;padding:4px 12px;font-size:.9rem}
+#toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;display:none;max-width:90%;z-index:60}
+@media(max-width:480px){.mb dl{grid-template-columns:1fr}.mb dt{margin-top:4px}}
+.chip.loc{min-height:34px;padding:3px 12px;font-size:.88rem;margin-top:10px}
 .two2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
 .lt{margin:2px 0 4px;font-size:.88rem}
 .dg{display:grid;gap:3px}
@@ -71,65 +93,129 @@ nav button[aria-selected=true]{color:var(--brand);font-weight:800;box-shadow:ins
 .cell.on{background:var(--tes);border-color:var(--tes);color:#fff;box-shadow:0 0 0 3px rgba(234,88,12,.35)}
 @media(max-width:400px){.two2{grid-template-columns:1fr}}
 .algs{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin-bottom:6px}
-.alg{background:var(--card);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:8px;font:inherit;text-align:left;cursor:zoom-in}
+.alg{background:var(--card);color:var(--ink);border:0;border-radius:14px;padding:8px;font:inherit;text-align:left;cursor:zoom-in;box-shadow:var(--sh)}
 .alg img{width:100%;height:130px;object-fit:cover;object-position:top left;border-radius:8px;border:1px solid var(--line);background:#fff;display:block;margin-bottom:6px}
 .alg small{display:block;color:var(--mute)}
 #visor{position:fixed;inset:0;z-index:50;background:#000;display:none;flex-direction:column}
-.vbar{display:flex;gap:8px;align-items:center;background:var(--brand2);color:#fff;padding:8px 10px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
-.vbar b{font-size:.95rem;line-height:1.2}
-.vbar button{min-width:44px;min-height:44px;border:0;border-radius:10px;background:#fff;color:#0b2a8a;font:inherit;font-weight:800;cursor:pointer}
+.vbar{display:flex;gap:10px;align-items:center;background:var(--brand2);color:#fff;padding:8px 10px 8px 14px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.vbar b{flex:1;font-size:.95rem;line-height:1.2}
+.vbar button{width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;font-size:1.2rem;font-weight:800;cursor:pointer}
 #vbox{flex:1;overflow:hidden;position:relative;touch-action:none;background:#fff;cursor:grab}
 #vimg{position:absolute;left:0;top:0;transform-origin:0 0;max-width:none;user-select:none;-webkit-user-drag:none}
+#vhint{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.7);color:#fff;border-radius:999px;padding:6px 14px;font-size:.82rem;pointer-events:none;transition:opacity .6s}
+/* Parada */
+.cpr{text-align:center}
+.ring{position:relative;width:min(260px,70vw);aspect-ratio:1;margin:6px auto 10px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:9}
+.ring .bg{stroke:var(--line)}.ring .fg{stroke:var(--brand);stroke-linecap:round;transition:stroke-dashoffset .12s linear}
+.ring .mid{position:absolute;inset:0;display:grid;place-content:center}
+.tm{font-size:2.9rem;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+.ring small{color:var(--mute);display:block}
+.heart{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--line);vertical-align:middle;margin-right:6px}
+.heart.p{background:var(--red);box-shadow:0 0 0 6px rgba(220,38,38,.25)}
+.stats{display:flex;gap:8px;margin:8px 0 12px}
+.stat{flex:1;background:var(--card);border-radius:14px;padding:8px;box-shadow:var(--sh)}
+.stat b{display:block;font-size:1.5rem;line-height:1.1}.stat span{font-size:.75rem;color:var(--mute)}
+.bpm{display:flex;align-items:center;gap:10px;background:var(--card);border-radius:14px;padding:8px 12px;box-shadow:var(--sh);margin-bottom:10px}
+.bpm input[type=range]{flex:1}
+.bpm button,.big-b{border:0;font:inherit;font-weight:800;cursor:pointer;border-radius:12px}
+.bpm button{width:40px;height:40px;background:var(--soft);color:var(--brand);font-size:1.2rem}
+.bpm b{min-width:70px;text-align:center}
+.mt[aria-pressed=true]{background:var(--brand)!important;color:#fff!important}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.big-b{min-height:60px;font-size:1.1rem;color:#fff;background:var(--ok)}
+.big-b.stop{background:var(--warn)}.big-b.end{background:var(--red)}.big-b.ev{background:var(--card);color:var(--ink);box-shadow:var(--sh);border:1.5px solid var(--line);min-height:52px;font-size:.95rem}
+.evs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.flash{animation:fl .5s steps(2) 6}
+@keyframes fl{50%{background:#fde047}}
+.sum{text-align:left}.sum table{width:100%;border-collapse:collapse;font-size:.92rem}
+.sum td{padding:4px 6px;border-bottom:1px solid var(--line)}.sum td:first-child{font-variant-numeric:tabular-nums;color:var(--mute);white-space:nowrap}
+.sum .kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.sum .kv div{background:var(--soft);border-radius:12px;padding:8px 10px}.sum .kv b{display:block;font-size:1.3rem}
 </style>
 </head>
 <body>
-<header>
+<header class="top">
   <svg viewBox="0 0 100 100" aria-hidden="true">
     <g fill="#fff" stroke="#fff" stroke-width="9" stroke-linejoin="round"><rect x="41" y="4" width="18" height="92" rx="3"/><rect x="41" y="4" width="18" height="92" rx="3" transform="rotate(60 50 50)"/><rect x="41" y="4" width="18" height="92" rx="3" transform="rotate(120 50 50)"/></g>
     <g fill="#1d4ed8"><rect x="41" y="4" width="18" height="92" rx="3"/><rect x="41" y="4" width="18" height="92" rx="3" transform="rotate(60 50 50)"/><rect x="41" y="4" width="18" height="92" rx="3" transform="rotate(120 50 50)"/></g>
     <g stroke="#fff" fill="none" stroke-linecap="round"><path d="M50 16v68" stroke-width="3.5"/><path d="M50 24q13 7 0 14t0 14t0 14" stroke-width="3"/></g>
   </svg>
-  <div><h1>Asistencia TPC</h1><p>Traslado de pacientes críticos · consulta rápida</p></div>
+  <div><h1 id="ttl">Revisiones</h1><p id="sub">Asistencia TPC</p></div>
+  <span class="hoy" id="hoy"></span>
 </header>
 <main>
 
 <section id="revisiones" class="on">
-  <h2>Revisiones</h2>
-  <div class="row" id="dias" role="group" aria-label="Día de la semana"></div>
-  <div class="row" id="profs" role="group" aria-label="Profesional"></div>
+  <div class="row" id="dias" role="group" aria-label="Día de la semana" style="gap:5px"></div>
+  <div class="row scroll" id="profs" role="group" aria-label="Profesional"></div>
   <div id="listaRev"></div>
   <p class="note">Los formularios se abren en Google Forms y necesitan conexión. El resto de la app funciona sin ella.</p>
 </section>
 
 <section id="medicacion">
-  <h2>Ampulario</h2>
-  <div class="note alert">Las dosis y diluciones proceden de una guía aportada por el equipo, sin autoría ni fecha, y están pendientes de validar por vuestra coordinación médica. Comprueba siempre con tu protocolo.</div>
+  <div class="note alert">Dosis y diluciones tomadas del vademécum aportado por el equipo, pendiente de validar por vuestra coordinación médica. Comprueba siempre con tu protocolo. En fármacos de alto riesgo, doble chequeo.</div>
   <input type="search" id="q" placeholder="Buscar fármaco o marca (ej. morfina, Adenocor)" autocomplete="off" aria-label="Buscar medicación">
-  <div class="row" id="tipoMed" role="group" aria-label="Tipo" style="margin-top:10px"></div>
+  <div class="seg" id="tipoMed" role="group" aria-label="Tipo"></div>
+  <div class="row scroll" id="catMed" role="group" aria-label="Categoría"></div>
   <div id="listaMed"></div>
 </section>
 
-<section id="calc">
-  <h2>Calculadora</h2>
-  <div class="note alert">Herramienta de cálculo. Comprueba siempre dosis y dilución con tu protocolo antes de administrar.</div>
-  <label for="cFarm">Fármaco (ampulario inyectable)</label><select id="cFarm"></select>
-  <label for="cModo">Tipo de dosis</label>
-  <select id="cModo"><option value="fija">Dosis fija (adulto)</option><option value="kg">Por peso (pediátrico o ajustada)</option></select>
-  <div class="two">
-    <div><label for="cDosis" id="lDosis">Dosis</label><input type="number" id="cDosis" step="any" min="0" inputmode="decimal"></div>
-    <div><label for="cUni">Unidad</label><select id="cUni"><option value="mg">mg</option><option value="mcg">mcg</option></select></div>
+<section id="herr">
+  <div class="seg" id="hTabs" role="group" aria-label="Herramienta">
+    <button data-h="dosis" aria-pressed="true">💉 Dosis</button><button data-h="o2" aria-pressed="false">🫁 Oxígeno</button><button data-h="cpr" aria-pressed="false">⏱ Parada</button>
   </div>
-  <div id="bPeso"><label for="cPeso">Peso del paciente (kg)</label><input type="number" id="cPeso" step="any" min="0" inputmode="decimal"></div>
-  <div class="two">
-    <div><label for="cN">Ampollas a diluir</label><input type="number" id="cN" value="1" min="1" step="1" inputmode="numeric"></div>
-    <div><label for="cV">Volumen final (ml)</label><input type="number" id="cV" step="any" min="0" inputmode="decimal" placeholder="opcional"></div>
+
+  <div id="h-dosis">
+    <div class="note alert">Herramienta de cálculo. Comprueba siempre dosis y dilución con tu protocolo antes de administrar.</div>
+    <label for="cFarm">Fármaco (ampulario inyectable)</label><select id="cFarm"></select>
+    <label for="cModo">Tipo de dosis</label>
+    <select id="cModo"><option value="fija">Dosis fija (adulto)</option><option value="kg">Por peso (pediátrico o ajustada)</option></select>
+    <div class="two">
+      <div><label for="cDosis" id="lDosis">Dosis</label><input type="number" id="cDosis" step="any" min="0" inputmode="decimal"></div>
+      <div><label for="cUni">Unidad</label><select id="cUni"><option value="mg">mg</option><option value="mcg">mcg</option></select></div>
+    </div>
+    <div id="bPeso"><label for="cPeso">Peso del paciente (kg)</label><input type="number" id="cPeso" step="any" min="0" inputmode="decimal"></div>
+    <div class="two">
+      <div><label for="cN">Ampollas a diluir</label><input type="number" id="cN" value="1" min="1" step="1" inputmode="numeric"></div>
+      <div><label for="cV">Volumen final (ml)</label><input type="number" id="cV" step="any" min="0" inputmode="decimal" placeholder="opcional"></div>
+    </div>
+    <div id="res"></div>
   </div>
-  <div id="res"></div>
+
+  <div id="h-o2" hidden>
+    <div class="note">Calcula el oxígeno necesario para un traslado y cuántas bombonas llevar.</div>
+    <div class="two">
+      <div><label for="oF">Flujo prescrito</label><input type="number" id="oF" step="any" min="0" inputmode="decimal" placeholder="ej. 10"></div>
+      <div><label for="oU">Unidad</label><select id="oU"><option value="60">L/min</option><option value="1">L/h</option></select></div>
+    </div>
+    <label for="oH">Duración del transporte (horas)</label><input type="number" id="oH" step="any" min="0" inputmode="decimal" placeholder="ej. 2,5">
+    <div class="two">
+      <div><label for="oC">Bombona (litros)</label><input type="number" id="oC" value="10" min="1" step="any" inputmode="decimal"></div>
+      <div><label for="oP">Presión (bar)</label><input type="number" id="oP" value="200" min="1" step="any" inputmode="decimal"></div>
+    </div>
+    <label for="oM">Reserva de seguridad (%)</label><input type="number" id="oM" value="20" min="0" step="1" inputmode="numeric">
+    <div id="oRes"></div>
+  </div>
+
+  <div id="h-cpr" class="cpr" hidden>
+    <div id="cprMain">
+      <div class="ring"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="54"/><circle class="fg" id="rg" cx="60" cy="60" r="54" stroke-dasharray="339.292" stroke-dashoffset="339.292"/></svg>
+        <div class="mid"><div class="tm" id="tm">00:00</div><small>Próxima alarma en <b id="nx">2:00</b></small><small><span class="heart" id="ht"></span><span id="bpmL">110</span> /min</small></div></div>
+      <div class="stats"><div class="stat"><b id="cy">0</b><span>ciclos de 2 min</span></div><div class="stat"><b id="dsc">0</b><span>descargas</span></div><div class="stat"><b id="lastA">—</b><span>desde adrenalina</span></div></div>
+      <div class="bpm"><button id="bm" aria-label="Menos">−</button><b><span id="bpmV">110</span> bpm</b><input type="range" id="bpmR" min="100" max="120" value="110" aria-label="Compresiones por minuto"><button id="bp" aria-label="Más">+</button><button id="mt" class="mt" aria-pressed="true" aria-label="Metrónomo">🔊</button></div>
+      <div class="btns"><button class="big-b" id="go">▶ Iniciar</button><button class="big-b end" id="fin">■ Finalizar</button></div>
+      <div class="evs"><button class="big-b ev" data-e="s">⚡ Descarga</button><button class="big-b ev" data-e="a">Adrenalina</button><button class="big-b ev" data-e="m">Amiodarona</button></div>
+      <p class="note" style="text-align:left">Metrónomo de compresiones y alarma fuerte cada 2 minutos (ciclo). Mantén la pantalla encendida y el volumen alto. En iPhone, el interruptor lateral en silencio puede mutear el sonido.</p>
+    </div>
+    <div id="cprSum" class="sum" hidden></div>
+  </div>
 </section>
 
 <section id="guias">
   <h2>Algoritmos</h2>
-  <p class="lt">Toca un algoritmo para ampliarlo. Zoom: pellizca, rueda el ratón o usa + y −.</p>
+  <p class="lt">Toca un algoritmo para ampliarlo. Pellizca o haz doble toque para el zoom.</p>
   <div class="algs" id="listaAlg"></div>
   <h2 style="margin-top:22px">Guías ERC 2025</h2>
   <div class="note">Las guías se guardan en el móvil al instalar la app y se abren sin conexión.</div>
@@ -142,14 +228,14 @@ nav button[aria-selected=true]{color:var(--brand);font-weight:800;box-shadow:ins
 </main>
 
 <nav role="tablist">
-  <button role="tab" aria-selected="true" data-t="revisiones"><span>✔</span>Revisiones</button>
-  <button role="tab" aria-selected="false" data-t="medicacion"><span>💊</span>Ampulario</button>
-  <button role="tab" aria-selected="false" data-t="calc"><span>🧮</span>Calculadora</button>
-  <button role="tab" aria-selected="false" data-t="guias"><span>📖</span>Guías</button>
+  <button role="tab" aria-selected="true" data-t="revisiones"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M8 14l3 3 5-6"/></svg>Revisiones</button>
+  <button role="tab" aria-selected="false" data-t="medicacion"><svg viewBox="0 0 24 24"><path d="M10.5 20.5a5 5 0 0 1-7-7l9-9a5 5 0 0 1 7 7z"/><path d="M8.5 8.5l7 7"/></svg>Ampulario</button>
+  <button role="tab" aria-selected="false" data-t="herr"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg>Herramientas</button>
+  <button role="tab" aria-selected="false" data-t="guias"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M9 7h6"/></svg>Guías</button>
 </nav>
 <div id="visor" role="dialog" aria-label="Visor de algoritmo">
-  <div class="vbar"><b id="vtit"></b><span style="flex:1"></span><button id="vm" aria-label="Alejar">−</button><button id="vp" aria-label="Acercar">+</button><button id="vf">Ajustar</button><button id="vx" aria-label="Cerrar">✕</button></div>
-  <div id="vbox"><img id="vimg" alt=""></div>
+  <div class="vbar"><b id="vtit"></b><button id="vx" aria-label="Cerrar">✕</button></div>
+  <div id="vbox"><img id="vimg" alt=""><div id="vhint">Pellizca para ampliar · doble toque para acercar</div></div>
 </div>
 <div id="toast" role="status"></div>
 
@@ -159,7 +245,7 @@ const ALGIMG=["data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAjgCOAAD/2wBDAAYEBAUEBA
 /* ===================== DATOS (aquí se edita todo) ===================== */
 const F="https://forms.gle/";
 const AMBITOS=["Traslado de pacientes críticos","Asistencia domiciliaria Córdoba","Técnicos de ambulancia y transporte adaptado","Generales Asistencia Los Ángeles","Generales Córdoba"];
-/* [ámbito, nombre, profesional, tipo, código del enlace, días (opcional: 0=lunes … 6=domingo)]
+/* [ámbito, nombre, profesional, tipo, código del enlace, días (opcional: [0]=lunes … [5]=sábado, [6]=domingo)]
    Sin días = aparece todos los días. Ejemplo para solo lunes y jueves: ,[0,3] al final de la línea. */
 const REV=[
 [0,"Revisión diaria médico","Médico","Diaria","i9dvL51Z2bwCcjBo9"],
@@ -168,16 +254,16 @@ const REV=[
 [0,"Revisión diaria incubadora","Enfermería","Diaria","4YUPxHFm7D67pQVd7"],
 [0,"Revisión semanal estupefacientes","Enfermería","Semanal","dqhEQ19EjYpVFGBs5"],
 [0,"Revisión semanal incubadora","Enfermería","Semanal","VRb9zvHDQowiZUjy5"],
-[0,"Revisión semanal DUE 1/6","Enfermería","Semanal","qQxanoC19DugqgU57"],
-[0,"Revisión semanal DUE 2/6","Enfermería","Semanal","kU5a4CA121Kibd4B9"],
-[0,"Revisión semanal DUE 3/6","Enfermería","Semanal","5DKAmrh9tbceRY598"],
-[0,"Revisión semanal DUE 4/6","Enfermería","Semanal","YVFDNYGm9B3MppMF9"],
-[0,"Revisión semanal DUE 5/6","Enfermería","Semanal","vYPkMZ7bNUk1Wyo26"],
-[0,"Revisión semanal DUE 6/6","Enfermería","Semanal","kA1W2izCVpmkRq9v5"],
-[0,"Revisión semanal TES 1/4","TES","Semanal","xqvGbLZ3sym1UGXv8"],
-[0,"Revisión semanal TES 2/4","TES","Semanal","37mbu1vXbkt216LD8"],
-[0,"Revisión semanal TES 3/4","TES","Semanal","USL1mrxGbFLEpS428"],
-[0,"Revisión semanal TES 4/4","TES","Semanal","QXnyW2jWKci9KEbD8"],
+[0,"Revisión semanal DUE 1/6","Enfermería","Semanal","qQxanoC19DugqgU57",[0]],
+[0,"Revisión semanal DUE 2/6","Enfermería","Semanal","kU5a4CA121Kibd4B9",[1]],
+[0,"Revisión semanal DUE 3/6","Enfermería","Semanal","5DKAmrh9tbceRY598",[2]],
+[0,"Revisión semanal DUE 4/6","Enfermería","Semanal","YVFDNYGm9B3MppMF9",[3]],
+[0,"Revisión semanal DUE 5/6","Enfermería","Semanal","vYPkMZ7bNUk1Wyo26",[4]],
+[0,"Revisión semanal DUE 6/6","Enfermería","Semanal","kA1W2izCVpmkRq9v5",[5]],
+[0,"Revisión semanal TES 1/4","TES","Semanal","xqvGbLZ3sym1UGXv8",[0]],
+[0,"Revisión semanal TES 2/4","TES","Semanal","37mbu1vXbkt216LD8",[1]],
+[0,"Revisión semanal TES 3/4","TES","Semanal","USL1mrxGbFLEpS428",[2]],
+[0,"Revisión semanal TES 4/4","TES","Semanal","QXnyW2jWKci9KEbD8",[3]],
 [0,"Revisión tras uso incubadora","Enfermería","Específico","KFRpZqbUfKh1X3ts7"],
 [0,"Registro tras uso estupefaciente","Enfermería","Específico","g3pLUbGAxABUQe4m6"],
 [0,"Registro incidencias en asistencia","General","Registro","PvHeNkqBxFK7mSwYA"],
@@ -272,26 +358,9 @@ const ORAL=[
 /* Dosis y diluciones: [fármaco, adulto, pediátrica, dilución, perfusión, aviso]
    Fuente: "Guía Completa de Fármacos, Diluciones y Dosis de Urgencias" aportada por el equipo (sin autoría ni fecha). PENDIENTE DE VALIDAR. */
 const DOSIS=[
-["adrenalina","PCR: 1 mg IV c/3-5 min · Anafilaxia: 0,5 mg IM (muslo) · Shock: 0,05-0,5 mcg/kg/min","PCR: 0,01 mg/kg IV (0,1 ml/kg de 1:10.000) · Anafilaxia: 0,01 mg/kg IM (máx 0,3-0,5 mg)","1:10.000 → 1 mg + 9 ml SSF = 0,1 mg/ml. Lavar con 20 ml SSF en PCR. IM sin diluir","1 mg en 100 ml SG5% (10 mcg/ml) · ml/h = (mcg/kg/min × kg × 60) / 10 · Proteger de la luz","Alerta crítica"],
-["noradrenalina","Shock vasodilatador: 0,05-1 mcg/kg/min IV. Titular según TAM > 65 mmHg","Shock séptico/distributivo: 0,05-2 mcg/kg/min IV","PROHIBIDO bolo directo sin diluir. Push-dose de rescate: 1 ml de la perfusión en 9 ml SSF (4 mcg/ml)","10 mg en 250 ml SG5% o SSF (40 mcg/ml) · ml/h = (mcg/kg/min × kg × 60) / 40 · Línea exclusiva","Vía central preferente. Tu vial es de 5 mg/10 ml: los 10 mg de la mezcla son 2 viales"],
-["dobutamina","Shock cardiogénico: 2,5-20 mcg/kg/min IV","Inotrópico: 2,5-20 mcg/kg/min IV","NO administrar en bolo. Incompatible con bicarbonato","250 mg en 250 ml SG5% o SSF (1 mg/ml) · ml/h = (mcg/kg/min × kg × 60) / 1000"],
-["amiodarona","PCR (FV/TVSP): 300 mg bolo IV · Taquicardia: 150-300 mg de carga en 20 min","PCR: 5 mg/kg IV bolo · Carga: 5 mg/kg en 20-60 min","PCR: 300 mg en 20 ml SG5% bolo directo · Carga: 150-300 mg en 100 ml SG5% en 20 min","900 mg en 500 ml SG5% (1,8 mg/ml). Mantenimiento 10-20 mg/kg/24 h","Solo SG5%. Incompatible con SSF en perfusión"],
-["adenosina","TPSV: 1.ª dosis 6 mg bolo; 2.ª y 3.ª dosis 12 mg IV","TPSV: 0,1 mg/kg (máx 6 mg); 2.ª dosis 0,2 mg/kg (máx 12 mg)","SIN DILUIR. Inyectar en 1-2 s en vía proximal + bolo inmediato de 20 ml SSF y brazo elevado","No se administra en perfusión continua"],
-["atropina","Bradicardia: 0,5-1 mg c/3-5 min (máx 3 mg) · Organofosforados: 2-5 mg c/10 min","Bradicardia: 0,02 mg/kg (mín 0,1 mg; máx 0,5 mg)","1 mg + 9 ml SSF = 0,1 mg/ml. Administrar la dosis rápido (evita bradicardia paradójica)","No habitual en perfusión (salvo organofosforados)"],
-["nitroglicerina","SICA/EAP: 5-200 mcg/min IV, titular c/5 min según PAS > 100 mmHg · Sublingual: 0,4 mg c/5 min","Crisis HTA: 0,5-5 mcg/kg/min IV","Para IV usar siempre bomba de infusión","50 mg en 500 ml SG5% o SSF (100 mcg/ml) · ml/h = (mcg/min × 60) / 100 · Equipo sin PVC"],
-["labetalol","Crisis HTA: bolos de 20 mg c/10 min (máx 300 mg) o perfusión 0,5-2 mg/min","Crisis HTA: 0,2-1 mg/kg en 2 min (máx 20 mg)","Sin diluir (5 mg/ml) o 1:1 en SSF (2,5 mg/ml). Pasar en 2 min","200 mg en 160 ml SG5% o SSF (1 mg/ml) · ml/h = mg/min × 60"],
-["furosemida","EAP/sobrecarga: 20-80 mg IV bolo · Perfusión 5-40 mg/h","Sobrecarga: 1 mg/kg IV bolo (máx 20 mg)","Sin diluir. Administrar lento (máx 4 mg/min por ototoxicidad)","250 mg en 250 ml SSF (1 mg/ml). Proteger de la luz si es prolongada"],
-["fentanilo","Analgesia: 1-2 mcg/kg IV · Inducción SRI: 2-5 mcg/kg IV","Analgesia/SRI: 1-2 mcg/kg IV o intranasal","150 mcg + 12 ml SSF = 10 mcg/ml (15 ml en total). Pasar en 1-2 min (evita rigidez torácica)","750 mcg (15 ml) en 250 ml SSF (3 mcg/ml). Titular según analgesia"],
-["morfico","Dolor agudo: bolos de 2-4 mg IV c/10-15 min","Analgesia: 0,05-0,1 mg/kg IV","10 mg + 9 ml SSF = 1 mg/ml. Inyectar a 1-2 mg por minuto","50 mg en 250 ml SSF (0,2 mg/ml). Titular según respuesta"],
-["midazolam","Sedación: 2,5-5 mg IV · Convulsión: 5-10 mg IM/IV","Convulsión: 0,1-0,2 mg/kg IV · 0,2-0,3 mg/kg intranasal · 0,3-0,5 mg/kg rectal","15 mg + 12 ml SSF = 1 mg/ml (15 ml en total). Titular 1 mg/min hasta la sedación deseada","50 mg en 100 ml SSF o SG5% (0,5 mg/ml) · ml/h = mg/h / 0,5"],
-["diazepam","Estatus: 5-10 mg IV c/10-15 min (máx 30 mg)","Estatus: 0,2-0,5 mg/kg rectal · 0,1-0,2 mg/kg IV","SIN DILUIR. Inyectar en vena gruesa (máx 5 mg/min). Precipita en suero","No recomendado en infusión continua"],
-["levetiracetam","Estatus: 30-60 mg/kg (dosis estándar 1.500-3.000 mg)","Estatus: 20-40 mg/kg IV","Diluir la dosis en 100 ml SSF o SG5% (20-50 ml en niños). Infundir en 15 min","Mantenimiento 1.000-1.500 mg c/12 h IV en 15 min"],
-["valproato","Estatus: 40 mg/kg IV en 5-10 min (habitual 2.000-3.000 mg)","Estatus: 20-40 mg/kg IV","Reconstituir con su disolvente y diluir en 100 ml SSF. Infundir a 6 mg/kg/min","Perfusión continua: 1-2 mg/kg/h en SSF"],
 ["naloxona","Sobredosis: 0,4-2 mg IV/IM c/2-3 min","Sobredosis: 0,01-0,1 mg/kg IV/IM","0,4 mg + 9 ml SSF = 0,04 mg/ml. Titular 1-2 ml c/2 min hasta respuesta ventilatoria","2 mg en 500 ml SSF (4 mcg/ml). Ajustar según vida media del opioide"],
 ["flumazenilo","Reversión BZD: 0,2 mg IV en 30 s; repetir 0,1 mg c/60 s (máx 1 mg)","Reversión BZD: 0,01 mg/kg IV (máx 0,2 mg)","Sin diluir (0,1 mg/ml). Administrar en 30 s. Vigilar convulsiones","0,1-0,4 mg/h en SSF si reaparece la sedación"],
-["acetilcisteina","Intoxicación por paracetamol: protocolo de 21 h IV en SG5%","Mismo protocolo con volumen ajustado por peso","1.ª carga: 150 mg/kg en 250 ml SG5% en 1 h","2.ª: 50 mg/kg en 500 ml SG5% en 4 h · 3.ª: 100 mg/kg en 1.000 ml SG5% en 16 h"],
-["metilprednisolona","Anafilaxia/asma: 1-2 mg/kg IV","Broncoespasmo: 1-2 mg/kg IV","Reconstituir el liofilizado y diluir en 50 ml SSF. Infundir en 5-10 min","Bolos c/6-8 h según evolución"],
-["salbutamol iv","Broncoespasmo severo: 250 mcg IV lento o perfusión 5-20 mcg/min","Ataque grave: 15 mcg/kg IV en 10 min","0,5 mg (1 ml) + 9 ml SSF = 50 mcg/ml. Inyectar muy lento en 10 min","5 mg (10 amp) en 500 ml SG5% (10 mcg/ml) · ml/h = mcg/min × 6"]
+["acetilcisteina","Intoxicación por paracetamol: protocolo de 21 h IV en SG5%","Mismo protocolo con volumen ajustado por peso","1.ª carga: 150 mg/kg en 250 ml SG5% en 1 h","2.ª: 50 mg/kg en 500 ml SG5% en 4 h · 3.ª: 100 mg/kg en 1.000 ml SG5% en 16 h"]
 ];
 
 /* Ubicaciones. Mochila: [columna, fila, fármacos]. Los que empiezan por ~ son orales. */
@@ -327,7 +396,8 @@ const OTROS=[
 {t:"Chuletario de Urgencias (web)",d:"Fármacos, perfusiones, pediatría y transporte de neonatos",e:"https://www.chuletariodeurgencias.es/"},
 {t:"Chuletario Urgencias EH (Android)",d:"App en Google Play · consulta de dosis y calculadoras",e:"https://play.google.com/store/apps/details?id=com.mayqnapcloud.nasmajalijar&hl=es"}
 ];
-/* ====================================================================== */
+/* Vademécum (guía aportada por el equipo): k=claves de nombre, c=categoría, r=1 alto riesgo / 2 estupefaciente, i=indicación/CI, d=diluciones, a=adulto, p=pediátrico */
+const VAD=[{"k":["adrenalina"],"c":1,"r":1,"i":"PCR, Anafilaxia, Laringospasmo, Shock. CI: Ninguna en PCR/Emergencia.","d":["Jeringa 10 mL (1:10.000 = 0.1 mg/mL): 1 mL Adrenalina + 9 mL SF.","Perfusión: 1 mg en 100 mL SG5% o SF (10 μg/mL)."],"a":"PCR: 1 mg IV directa/3-5 min. Anafilaxia: 0.5 mg IM. Perfusión: 0.05-0.5 μg/kg/min.","p":"PCR: 0.01 mg/kg IV (0.1 mL/kg de 1:10.000). Anafilaxia: 0.01 mg/kg IM (máx 0.3 mg)."},{"k":["amiodarona"],"c":1,"r":1,"i":"FV/TVSP refractaria, TAQ auricular/ventricular. CI: Bradicardia, BAV.","d":["PCR: 300 mg (2 amp) diluidos en 20 mL de SG 5%.","Perfusión: Diluir SOLO en SG 5% (Incompatible con SF)."],"a":"PCR: 300 mg IV tras 3ª descarga; 150 mg tras 5ª. Carga: 5 mg/kg en 100 mL SG5% en 20 min.","p":"PCR: 5 mg/kg IV en bolus (máx 300 mg). Perfusión: 5 mg/kg en 20-60 min."},{"k":["sulfato de magnesio"],"c":1,"r":0,"i":"Torsades de Pointes, Eclampsia, Broncospasmo severo. CI: Bloqueo cardíaco, Insuf. renal grave.","d":["Dilución: Diluir 1.5 g (1 amp) en 100 mL de SF o SG 5% para infusión en 10-20 min."],"a":"Torsades / Eclampsia: 1.5 - 2 g IV en 10-15 min. Asma grave: 1.5 - 2 g IV en 20 min.","p":"25 - 50 mg/kg IV en 20 min (máximo 2 g)."},{"k":["lidocaina"],"c":1,"r":0,"i":"Arritmias ventriculares (alternativa a Amiodarona), Anestesia. CI: Bloqueos AV, Alergia amidas.","d":["ATENCIÓN CONCENTRACIÓN (5%): Cargar 1 mL (50 mg) + 4 mL SF = 10 mg/mL (Solución al 1%). ENCIAS - MEDICINA Y ENFERMERÍA ulto / Pediatría y Fuentes Oficiales SMP 2025/2026 Paciente, Fármaco, Dosis, Vía y Velocidad). En fármacos de ALTO dosis pediátricas por peso exacto. RRITMIAS GRAVES"],"a":"","p":""},{"k":["adenosina"],"c":1,"r":1,"i":"TSVP. CI: Bloqueo AV 2º-3º grado, Enfermedad del seno, Asma severo.","d":["Sin diluir: Bolus IV ultra-rápido en 1-2 seg en vena antecubital + Lavado inmediato con 20 mL de SF."],"a":"1º bolus: 6 mg IV. Si no revierte en 2 min: 2º bolus 12 mg IV. 3º bolus: 12 mg.","p":"1º bolus: 0.1 mg/kg IV (máx 6 mg). 2º bolus: 0.2 mg/kg IV (máx 12 mg)."},{"k":["atropina"],"c":1,"r":0,"i":"Bradicardia sintomática, Intoxicación organofosforados. CI: Glaucoma de ángulo cerrado.","d":["Jeringa 10 mL: 1 mg + 9 mL SF = 0.1 mg/mL (facilita dosificación pediátrica y titulación)."],"a":"Bradicardia: 0.8-1 mg IV rápida/3-5 min (máx 3 mg). Dosis < 0.5 mg induce bradicardia.","p":"0.02 mg/kg IV (mínimo 0.1 mg, máximo 0.5 mg en niños, 1 mg en adolescentes)."},{"k":["gluconato calcico"],"c":1,"r":1,"i":"Hiperpotasemia grave con cambios ECG, Hipocalcemia, Intox. Antagonistas Ca. CI: FV, Digital.","d":["Lenta en 5-10 min: Diluir 1 amp en 50-100 mL de SF o SG5%. Nunca mezclar con Bicarbonato (Precipita)."],"a":"10 mL (1 g) IV lento en 5-10 min. Repetir a los 10 min si persisten cambios ECG.","p":"0.5 mL/kg de Solución al 10% IV lento (máx 10 mL = 1 g)."},{"k":["flecainida"],"c":1,"r":1,"i":"Cardioversión farmacológica de FA reciente sin cardiopatía estructural. CI: C. Isquémica, IC.","d":["Dilución: Diluir dosis calculada en 50 - 100 mL de SG 5% para infusión en 10-30 min con monitorización ECG."],"a":"","p":""},{"k":["procainamida"],"c":1,"r":0,"i":"Taquicardia de QRS ancho estable, FA preexcitada (WPW). CI: BAV, QT largo, Brugada.","d":["Dilución: Diluir 1 g (10 mL) en 100 mL SG5% (10 mg/mL). Infundir a 20-50 mg/min hasta controlar, hipotensión o máx 17 mg/kg."],"a":"100 mg IV cada 5 min (a 20-50 mg/min) hasta máx 1 g (17 mg/kg).","p":"15 mg/kg IV a pasar en 30-60 min con monitorización estrecha de TA y ECG."},{"k":["fentanilo"],"c":2,"r":2,"i":"Dolor agudo severo, Inducción SRI, Analgosedación. CI: Depresión respiratoria grave.","d":["Jeringa 5 mL (10 μg/mL): Cargar 1 mL Fentanilo (50 μg) + 4 mL SF = 5 mL (10 μg/mL). Evita tórax en rígido por infusión rápida."],"a":"Bolus IV: 50 - 100 μg (1 - 2 mL ampolla) en 2 min. SRI: 1.5 - 3 μg/kg IV.","p":"1 - 2 μg/kg IV lento en 2-3 min (usar la jeringa diluida a 10 μg/mL)."},{"k":["tramadol"],"c":2,"r":0,"i":"Dolor moderado a severo. CI: Epilepsia no controlada, Tratamiento con IMAOs.","d":["Dilución obligatoria: Diluir 100 mg en 100 mL SF a pasar en 15-20 min. En IV directa rápida causa náuseas/vómitos intensos."],"a":"50 - 100 mg IV infundido en 15 min o IM. Máximo 400 mg/día.","p":"(> 12 años): 1 - 1.5 mg/kg IV lento en 15 min. No recomendado < 12 años en urgencias."},{"k":["diazepam"],"c":2,"r":1,"i":"Crisis convulsiva, Esputo espástico, Agitación. CI: Depresión respiratoria, Insuf. hepática.","d":["Administración: IV directa LENTA sin diluir (1 mL/min) en vena gruesa. Si se diluye precipita fácilmente. Vía Rectal: cánula pura."],"a":"5 - 10 mg IV lenta (o vía rectal si no hay vía IV). Repetir a los 10-15 min si precisa.","p":"IV: 0.2 - 0.3 mg/kg lento. Vía Rectal: 0.5 mg/kg (usar cánula o jeringa sin aguja)."},{"k":["cloruro"],"c":2,"r":2,"i":"Dolor severo (SCA, traumatismo, EAP). CI: Depresión respiratoria, TC grave, hipotensión.","d":["JERINGA DE TITULACIÓN (1 mg/mL): Cargar 1 mL (10 mg) + 9 mL SF = 10 mL (1 mg/mL). Pauta clave de enfermería."],"a":"2 - 5 mg IV cada 5-10 min hasta control del dolor (titulación fina).","p":"0.05 - 0.1 mg/kg IV lento (0.05-0.1 mL/kg de la jeringa diluida)."},{"k":["meperidina"],"c":2,"r":2,"i":"Dolor agudo intenso, Temblores postanestésicos/tiritona. CI: Tratamiento con IMAO, Insuf. renal.","d":["Jeringa 10 mL: Cargar 2 mL (100 mg) + 8 mL SF = 10 mL (10 mg/mL). Administrar muy lento."],"a":"25 - 100 mg IV lento en 5 min o IM. Repetir a las 3-4 horas si precisa.","p":"0.5 - 1 mg/kg IV lento o IM (máximo 50 mg por dosis)."},{"k":["midazolam"],"c":2,"r":1,"i":"Estatus epiléptico, SRI, Agitación, Sedación. CI: Miastenia gravis, Shock no corregido.","d":["Jeringa 15 mL (1 mg/mL): 3 mL (15 mg) + 12 mL SF = 15 mL (1 mg/mL).","Vía Intranasal / IM: Usar solución pura a 5 mg/mL."],"a":"Convulsión: 10 mg IM / IN o 2-5 mg IV lento. SRI: 0.2 0.3 mg/kg IV.","p":"Convulsión: 0.2 mg/kg IN / Buccal (máx 10 mg) o 0.15 mg/kg IV lento."},{"k":["etomidato"],"c":2,"r":1,"i":"Inducción anestésica en Secuencia Rápida de Intubación (SRI). CI: Alergia a componentes.","d":["Administración: Bolus IV directo rápido en 30 segundos. Excelente perfil hemodinámico (no baja TA)."],"a":"0.3 mg/kg IV en bolus (dosis habitual: 20 mg = 1 ampolla completa en un adulto de 70 kg).","p":"0.3 mg/kg IV bolus en niños > 10 años. Uso por personal experto."},{"k":["neostigmina"],"c":2,"r":0,"i":"Reversión de bloqueantes neuromusculares no despolarizantes, Miastenia. CI: Obstrucción digestiva/urinaria.","d":["PRECAUCIÓN: Administrar SIEMPRE junto con Atropina (0.5-1 mg IV) para prevenir bradicardia severa."],"a":"0.5 - 2.5 mg IV lenta en 2-3 min precedida de Atropina.","p":"0.04 mg/kg IV junto con Atropina 0.02 mg/kg."},{"k":["dobutamina"],"c":3,"r":1,"i":"Shock cardiogénico, Inotropismo negativo bajo. CI: Estenosis subaórtica hipertrófica.","d":["Perfusión: 250 mg (1 amp) en 250 mL SG 5% o SF (1 mg/mL = 1.000 μg/mL). Usar bomba de infusión."],"a":"Perfusión continua: 2.5 - 20 μg/kg/min regulado según gasto cardíaco.","p":"2.5 - 15 μg/kg/min en perfusión continua."},{"k":["labetalol"],"c":3,"r":0,"i":"Emergencia hipertensiva, Disec. Aorta, Preeclampsia. CI: Asma, BAV 2º-3º, ICA.","d":["Bolus IV: 20 mg (4 mL) directo en 2 min.","Perfusión: 200 mg (2 amp) en 200 mL SF (1 mg/mL)."],"a":"Bolus 20 mg IV; repetir 20-80 mg cada 10 min (máx 300 mg). Perfusión: 0.5 - 2 mg/min.","p":"Bolus: 0.2 - 1 mg/kg IV (máx 20 mg). Perfusión: 0.25 - 1.5 mg/kg/h."},{"k":["hidralazina"],"c":3,"r":0,"i":"Emergencia hipertensiva en el embarazo (Preeclampsia/Eclampsia). CI: LUPUS, Taquicardia severa.","d":["Jeringa 10 mL (2 mg/mL): 1 mL (20 mg) + 9 mL SF = 10 mL. Inyectar muy lento."],"a":"5 - 10 mg IV lentos en 5 min. Repetir cada 20-30 min si precisa (máx 40 mg).","p":"0.1 - 0.2 mg/kg IV lento cada 4-6 horas (máx 20 mg por dosis)."},{"k":["noradrenalina"],"c":3,"r":1,"i":"Shock distributivo (séptico), Vasoplejia. CI: Hipovolemia no corregida.","d":["Perfusión Estándar: 1 vial (5 mg) en 250 mL SG 5% (20 μg/mL). Infusión exclusiva por bomba / Vía Central preferente."],"a":"Perfusión continua: 0.05 - 1 μg/kg/min titulación según PAM objetiva (> 65 mmHg).","p":"0.05 - 0.5 μg/kg/min en perfusión continua estricta por bomba."},{"k":["nitroglicerina"],"c":3,"r":1,"i":"SCA, Edema Agudo Pulmón, Crisis Hipertensiva. CI: PAS < 90, Infarto de VD, Sildenafilo.","d":["Perfusión: 50 mg (1 amp) en 250 mL SG 5% o SF (200 μg/mL). Utilizar sistema sin PVC (Poliolefina/Vidrio)."],"a":"Iniciar a 10-20 μg/min (3-6 mL/h) y subir de 5-10 μg/min cada 5 min según TA.","p":"0.5 - 5 μg/kg/min en perfusión continua por bomba."},{"k":["urapidilo"],"c":3,"r":0,"i":"Crisis/Emergencia hipertensiva, ICTUS con HTA severa. CI: Estenosis aórtica.","d":["Bolus IV: Directo en 2 min o diluido en 100 mL de SF para perfusión a 9-30 mg/h."],"a":"Bolus IV: 12.5 - 25 mg (2.5 - 5 mL) lento. Si no responde en 5 min, repetir. Mantenimiento: 5-30 mg/h.","p":"0.5 - 2 mg/kg IV en bolus lento o perfusión 0.05 0.3 mg/kg/h."},{"k":["atenolol"],"c":3,"r":0,"i":"Taquicardia supraventricular, SCA, Control de frecuencia. CI: Bradicardia, BAV, Shock.","d":["Administración: Infusión IV directa lenta a razón de 1 mg/min (2 mL/min)."],"a":"2.5 - 5 mg IV lento en 5 min. Se puede repetir a los 10 min (dosis máxima 10 mg).","p":"Uso muy restringido: 0.05 - 0.1 mg/kg IV lento en 5 min."},{"k":["furosemida"],"c":3,"r":0,"i":"EAP, Insuficiencia cardíaca, Sobrecarga hídrica. CI: Anuria, Hipopotasemia grave.","d":["Administración: IV directa lenta (sin diluir o en 10 mL SF) a velocidad < 20 mg/min para evitar ototoxicidad."],"a":"20 - 40 mg IV lenta. En EAP grave o IR: 80 - 120 mg IV en perfusión.","p":"1 mg/kg IV lento (máximo 20 mg por dosis en niños pequeños)."},{"k":["heparina"],"c":3,"r":1,"i":"TEP agudo, Embolia arterial, Anticoagulación rápida. CI: Hemorragia activa, Diátesis.","d":["Bolus IV: Directo o diluido en SF.","Perfusión: 25.000 UI en 250 mL SF (100 UI/mL)."],"a":"Bolus IV inicial: 60 - 80 UI/kg (máx 5.000 UI). Perfusión: 12 - 18 UI/kg/h con ajuste TTPa.","p":"Bolus IV inicial: 50 - 75 UI/kg. Perfusión: 20 - 28 UI/kg/h por bomba."},{"k":["levetiracetam"],"c":4,"r":0,"i":"Status epiléptico, Crisis convulsivas parciales/generalizadas. CI: Hipersensibilidad.","d":["Dilución: Diluir dosis calculada (1.000-3.000 mg) en 100 mL de SF o SG 5% e infundir en 15 min."],"a":"Dosis de carga: 30 - 60 mg/kg IV (dosis estándar: 1.500 - 3.000 mg IV en 15 min).","p":"30 - 50 mg/kg IV en 15 min (máximo 3.000 mg)."},{"k":["haloperidol"],"c":4,"r":0,"i":"Agitación psicomotriz, Delirium, Psicosis aguda. CI: Parkinson, Depresión SNC, QT largo.","d":["Vía de elección: IM profunda sin diluir. Si se usa IV (uso off-label): diluir en 10 mL SF y pasar muy lento (riesgo Torsades)."],"a":"Agitación: 2.5 - 5 mg IM/IV. Repetir cada 30-60 min si precisa (máx 20 mg/día).","p":"(> 3 años): 0.025 - 0.05 mg/kg/día IM divididos (uso restringido en pediatría)."},{"k":["biperideno"],"c":4,"r":0,"i":"","d":[],"a":"","p":""},{"k":["enoxaparina"],"c":3,"r":0,"i":"SCASEST, SCACEST, TVP/TEP. CI: Sangrado activo, Trombocitopenia por Heparina.","d":["Administración: Vía Subcutánea (SC) en pared abdominal. En SCACEST: Bolus IV inicial de 30 mg + dosis SC."],"a":"Tratamiento: 1 mg/kg (100 UI/kg) SC cada 12 horas. SCACEST (<75 años): 30 mg IV + 1 mg/kg SC.","p":"1 mg/kg SC cada 12 horas (Lactantes: 1.5 mg/kg SC cada 12h)."},{"k":["valproato"],"c":4,"r":0,"i":"Estatus epiléptico refractario a BZD. CI: Insuficiencia hepática grave, Porfiria.","d":["Reconstitución: Disolver vial de 400 mg en sus 4 mL y diluir en 100 mL de SF o SG 5% a pasar en 5-10 min."],"a":"Dosis de carga: 20 - 40 mg/kg IV a 3-6 mg/kg/min (dosis media 1.500 - 3.000 mg).","p":"20 - 30 mg/kg IV en 5-10 min. Perfusión: 1 mg/kg/h."},{"k":["fenobarbital"],"c":4,"r":1,"i":"Estatus epiléptico neonatal y refractario. CI: Depresión respiratoria grave, Porfiria.","d":["Dilución: Diluir 1 amp (200 mg) en 9 mL de SF (20 mg/mL) e inyectar muy lento (máx 50 mg/min)."],"a":"15 - 20 mg/kg IV lento (a velocidad máx de 50 mg/min). Monitorizar respiración.","p":"20 mg/kg IV lento (primera línea en convulsiones neonatales)."},{"k":["clorpromazina","clorpromacina"],"c":4,"r":0,"i":"Agitación grave, Hipo incoercible, Psicosis. CI: Coma, Glaucoma de ángulo cerrado.","d":["Administración: IM profunda. Si es IV: diluir 25 mg en 100 mL de SF e infundir lento (hipotensión marcada)."],"a":"Agitación / Hipo: 25 - 50 mg IM o perfusión IV lenta.","p":"0.55 mg/kg IM profunda cada 6-8 horas si precisa."},{"k":["mepivacaina"],"c":4,"r":0,"i":"","d":[],"a":"","p":""},{"k":["sulpiride"],"c":5,"r":0,"i":"Síndrome vertiginoso agudo, Agitación. CI: Feocromocitoma, Tumores prolactina.","d":["Administración: Vía IM profunda directa."],"a":"100 mg (1 ampolla) IM cada 8-12 horas según respuesta clínica.","p":"No recomendado en pediatría por falta de datos de seguridad en emergencias."},{"k":["metamizol"],"c":5,"r":0,"i":"Dolor agudo visceral/postoperatorio, Fiebre refractaria. CI: Agranulocitosis, Hipotensión.","d":["DILUCIÓN OBLIGATORIA: Diluir 2 g en 100 mL de SF e infundir en 15 min. La inyección IV rápida produce hipotensión severa y shock."],"a":"1 - 2 g IV lenta infundida en 15 min o IM profunda. Máx 6 g/día.","p":"12.5 - 25 mg/kg IV infundido en 15 min (máximo 2 g por dosis)."},{"k":["butilescopolamina"],"c":5,"r":0,"i":"Espasmo agudo gastrointestinal, Cólico biliar/renal. CI: Glaucoma, Miastenia, Taquicardia.","d":["Administración: IV directa lenta (en 1 min) o IM / SC."],"a":"20 mg (1 amp) IV lenta o IM. Repetir a los 30 min si precisa (máx 100 mg/día).","p":"0.3 - 0.6 mg/kg IV lenta / IM (máximo 20 mg por dosis)."},{"k":["salbutamol inh"],"c":6,"r":0,"i":"Broncospasmo en Asma, EPOC, Anafilaxia. CI: Hipersensibilidad.","d":["Nebulización: Colocar 2.5 - 5 mg en vaso nebulizador con flujo de O2 a 6-8 L/min."],"a":"2.5 - 5 mg (1 - 2 monodosis) nebulizados. Repetir cada 20 min en crisis grave (hasta 3 dosis seguidas).","p":"< 20 kg: 2.5 mg (1 monodosis); > 20 kg: 5 mg nebulizados con O2."},{"k":["budesonida"],"c":6,"r":0,"i":"","d":[],"a":"","p":""},{"k":["dexketoprofeno"],"c":5,"r":0,"i":"Dolor agudo moderado-severo (Cólico nefrítico, Musculoesquelético). CI: Úlcera, IR severa.","d":["Dilución: Diluir 50 mg en 100 mL SF a pasar en 15-30 min o IM profunda lenta."],"a":"50 mg IV / IM cada 8-12 horas (máximo 150 mg/día).","p":"No recomendado en niños < 18 años."},{"k":["diclofenaco"],"c":5,"r":0,"i":"Cólico renal, Dolor osteomuscular agudo, Gota. CI: Insuf. Cardíaca (NYHA II-IV), Úlcera peptídica.","d":["Vía de elección: IM profunda en cuadrante superoexterno del glúteo. Si es IV: diluir en 100 mL SF con Bicarbonato."],"a":"75 mg IM profunda (1 ampolla). Se puede repetir a las 12 horas si es necesario (máx 150 mg/día).","p":"No recomendado vía parenteral en < 14 años."},{"k":["salbutamol iv"],"c":6,"r":1,"i":"Broncospasmo severo refractario a nebulización, Amenaza de parto prematuro. CI: Taquiarritmias severas.","d":["IV Lenta: Diluir 0.5 mg (1 amp) en 10 mL SF (50 μg/mL). Inyectar muy lento.","Perfusión: 5 mg en 500 mL SG5% (10 μg/mL)."],"a":"Bolus IV: 100 - 250 μg lento. Perfusión: 5 - 20 μg/min adaptado a FC y broncodilatación.","p":"Bolus IV: 5 - 10 μg/kg lento. Perfusión: 0.5 - 2 μg/kg/min por bomba."},{"k":["bromuro"],"c":6,"r":0,"i":"Broncospasmo agudo en EPOC y Asma moderado-severo. CI: Alergia a Atropina/derivados.","d":["Nebulización: Mezclar en el mismo vaso nebulizador con Salbutamol + Flujo O2 a 6-8 L/min."],"a":"500 μg (1 vial) nebulizado cada 4-6 horas (en crisis grave: cada 20 min x 3 dosis).","p":"< 30 kg: 250 μg; > 30 kg: 500 μg nebulizados."},{"k":["teofilina"],"c":6,"r":1,"i":"","d":[],"a":"","p":""},{"k":["dexclorfeniramina"],"c":6,"r":0,"i":"Anafilaxia (coadyuvante), Urticaria, Reacción alérgica. CI: Crisis asmática severa.","d":["Administración: IV directa lenta (en 1 min) o IM profunda. Causa somnolencia e hipotensión rápida."],"a":"5 mg (1 ampolla) IV lenta o IM. Máximo 18-20 mg/día.","p":"0.15 mg/kg IV lenta o IM (máximo 5 mg por dosis)."},{"k":["metilprednisolona"],"c":6,"r":0,"i":"Crisis asmática, Anafilaxia, Exacerbación EPOC. CI: Infección fúngica.","d":["Reconstitución: Disolver vial con su ampolla de disolvente e inyectar IV directa en 1-2 min o IM."],"a":"Crisis Asma/EPOC: 40 - 125 mg IV. Anafilaxia: 125 250 mg IV.","p":"1 - 2 mg/kg IV directa (máximo 60 mg por dosis)."},{"k":["acido tranex"],"c":7,"r":0,"i":"Traumatismo grave con sangrado (CRASH-2), Hemorragia posparto. CI: Trombosis activa.","d":["Dilución: 1 g (2 viales = 10 mL) en 100 mL SF a pasar en 10 min (dentro de las primeras 3h del trauma)."],"a":"1 g IV en 10 min, seguido de 1 g en perfusión de 8 horas.","p":"15 - 20 mg/kg IV en 10 min (máximo 1 g)."},{"k":["ondansetron"],"c":7,"r":0,"i":"Prevención y tratamiento de náuseas/vómitos agudos. CI: QT largo congénito.","d":["Administración: IV directa en 2 min o diluido en 50 mL SF."],"a":"4 - 8 mg IV lenta en 2-5 min (máximo 16 mg por dosis).","p":"0.15 mg/kg IV lenta (máximo 4 mg por dosis). Excelente perfil pediátrico."},{"k":["tiamina","piridoxina"],"c":7,"r":0,"i":"Encefalopatía de Wernicke, Alcoholismo (pre-suero glucosado), Intox. isoniazida.","d":["Regla de oro: administrar tiamina 100 mg IV ANTES de infundir cualquier solución glucosada en alcohólicos."],"a":"","p":""},{"k":["dexametasona"],"c":6,"r":0,"i":"Edema cerebral, Crup laringeo, COVID-19 grave, Shock. CI: Infección fúngica sistémica.","d":["Administración: IV directa lenta en 1-3 min, IM o perfusión en SF/SG5%."],"a":"Edema cerebral: 10-40 mg IV. Anafilaxia/Asma: 8 - 20 mg IV.","p":"Crup Laringeo: 0.15 - 0.6 mg/kg IV/IM o VO (máx 12 mg)."},{"k":["hidrocortisona"],"c":6,"r":0,"i":"Insuficiencia suprarrenal aguda, Shock séptico refractario, Anafilaxia. CI: Micosis fúngica.","d":["Reconstitución: Disolver en 2 mL de SF o Agua p.i. e inyectar IV directa lenta o IM."],"a":"Crisis Suprarrenal: 100 mg IV en bolus seguido de 200 mg/24h en perfusión.","p":"Dosis de carga: 2 - 4 mg/kg IV (máx 100 mg)."},{"k":["metoclopramida"],"c":7,"r":0,"i":"Náuseas y vómitos. CI: Obstrucción intestinal, Parkinson, < 1 año (Síndrome extrapiramidal).","d":["Administración: IV directa LENTA en 3 min (evita acatisia e inquietud brusca) o IM."],"a":"10 mg IV lenta o IM (máximo 30 mg/día).","p":"0.1 - 0.15 mg/kg IV lenta (restringido en niños por extravasación extrapiramidal)."},{"k":["pantoprazol"],"c":7,"r":0,"i":"Hemorragia digestiva alta (HDA), Profilaxis de úlcera por estrés. CI: Hipersensibilidad.","d":["Reconstitución: Disolver vial de 40 mg con 10 mL de SF e inyectar en 2-5 min o diluir en 100 mL de SF."],"a":"Bolus HDA: 80 mg IV lento, seguido de perfusión a 8 mg/h. Dosis estándar: 40 mg IV/24h.","p":"1 mg/kg IV directo en 5 min (máximo 40 mg)."},{"k":["ritodrina","suero"],"c":7,"r":0,"i":"Ritodrina: tocolisis en amenaza de parto prematuro. SF: diluyente y lavado de vías.","d":["Ritodrina perfusión: 50 mg en 500 mL SG 5% (0.1 mg/mL). Iniciar a 0.05 mg/min por bomba."],"a":"","p":""},{"k":["verapamilo"],"c":1,"r":0,"i":"","d":[],"a":"","p":""},{"k":["digoxina"],"c":1,"r":0,"i":"","d":[],"a":"","p":""}];
 
 const rx=t=>new RegExp("(^|\\s)"+t.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"));
 const hit=(tok,n,oral)=>tok.split(",").some(t=>t&&(oral?t[0]==="~"&&rx(t.slice(1)).test(n):t[0]!=="~"&&rx(t).test(n)));
@@ -346,41 +416,61 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 const fmt=n=>(Math.round(n*1000)/1000).toString().replace(".",",");
-let dia=(new Date().getDay()+6)%7,prof="Todos",tipo="Inyectable";
+let dia=(new Date().getDay()+6)%7,prof="Todos",tipo="Inyectable",fc="todos";
+const HOY=dia;
+const SECS={revisiones:["Revisiones","Checklists por día"],medicacion:["Ampulario","Dosis, diluciones y ubicación"],herr:["Herramientas","Dosis · Oxígeno · Parada"],guias:["Guías","Algoritmos y ERC 2025"]};
+const CATS=[[1,"Reanimación y arritmias"],[2,"Sedoanalgesia y antídotos"],[3,"Cardiovascular"],[4,"Neuro y psiquiatría"],[5,"Analgesia"],[6,"Respiratorio y alergias"],[7,"Digestivo y varios"]];
+const CATX={naloxona:2,flumazenilo:2,acetilcisteina:2};
 function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",2600)}
 function abrir(u){if(!u){toast("Este botón aún no tiene enlace.");return}window.open(u,"_blank","noopener")}
 const PROFS=["Todos","Médico","Enfermería","TES","General"];
+const tieneEsp=d=>REV.some(r=>r[5]&&r[5].includes(d));
 
-function pDias(){$("dias").innerHTML=DIAS.map((d,i)=>`<button class="chip day" aria-pressed="${i===dia}" aria-label="${DL[i]}" data-d="${i}">${d}</button>`).join("")}
+function pDias(){$("dias").innerHTML=DIAS.map((d,i)=>`<button class="chip day${i===HOY?" hoyd":""}" aria-pressed="${i===dia}" aria-label="${DL[i]}${i===HOY?" (hoy)":""}" data-d="${i}">${d}${tieneEsp(i)?"<i></i>":""}</button>`).join("")}
 function pProfs(){$("profs").innerHTML=PROFS.map(p=>`<button class="chip" aria-pressed="${p===prof}" data-p="${p}">${p}</button>`).join("")}
 function pRev(){
-  let h="";
-  AMBITOS.forEach((a,ai)=>{
-    const l=REV.map((r,i)=>[r,i]).filter(([r])=>r[0]===ai&&(prof==="Todos"||r[2]===prof)&&(!r[5]||r[5].includes(dia)));
-    if(!l.length)return;
-    h+=`<h3 class="amb">${a}</h3>`+l.map(([r,i])=>`<button class="go" data-p="${r[2]}" data-i="${i}"><span class="ic">${r[2][0]}</span><span><b>${esc(r[1])}</b><span class="tags"><span class="tag c">${r[2]}</span><span class="tag">${r[3]}</span></span></span></button>`).join("");
-  });
-  $("listaRev").innerHTML=h||`<p class="empty">No hay revisiones para ${DL[dia].toLowerCase()} con este filtro.</p>`;
+  const all=REV.map((r,i)=>[r,i]).filter(([r])=>prof==="Todos"||r[2]===prof);
+  const it=([r,i],esp)=>`<button class="go" data-p="${r[2]}" data-i="${i}"><span class="ic">${r[2][0]}</span><span><b>${esc(r[1])}</b><span class="tags"><span class="tag c">${r[2]}</span><span class="tag">${r[3]}</span>${esp?`<span class="tag">${esc(AMBITOS[r[0]])}</span>`:""}</span></span></button>`;
+  const esp=all.filter(([r])=>r[5]&&r[5].includes(dia)),gen=all.filter(([r])=>!r[5]);
+  let h=`<h3 class="amb" style="margin-top:4px">${DL[dia]}${dia===HOY?" · hoy":""}</h3>`;
+  if(esp.length)h+=`<h3 class="amb dia">Revisión semanal de ${DL[dia].toLowerCase()}</h3>`+esp.map(x=>it(x,1)).join("");
+  AMBITOS.forEach((a,ai)=>{const l=gen.filter(([r])=>r[0]===ai);if(l.length)h+=`<h3 class="amb">${a}</h3>`+l.map(x=>it(x)).join("")});
+  $("listaRev").innerHTML=all.length?h:`<p class="empty">No hay revisiones con este filtro.</p>`;
 }
-function pTipo(){$("tipoMed").innerHTML=["Inyectable","Oral"].map(t=>`<button class="chip" aria-pressed="${t===tipo}" data-m="${t}">${t}</button>`).join("")}
+function pTipo(){$("tipoMed").innerHTML=["Inyectable","Oral"].map(t=>`<button aria-pressed="${t===tipo}" data-m="${t}">${t}</button>`).join("");
+  $("catMed").hidden=tipo==="Oral";
+  $("catMed").innerHTML=[["todos","Todos"],["alto","⚠ Alto riesgo"],["estup","Estupefacientes"]].concat(CATS).map(([k,t])=>`<button class="chip" aria-pressed="${String(k)===String(fc)}" data-c="${k}">${t}</button>`).join("")}
+const vd=m=>{const n=norm(m[1]);return VAD.find(o=>o.k.some(k=>n.startsWith(k)))};
+const catOf=m=>{const v=vd(m);return v?v.c:CATX[norm(m[1])]||0};
 function pMed(){
-  const q=norm($("q").value.trim());
-  const src=tipo==="Oral"?ORAL:INY;
-  const l=src.filter(m=>!q||norm(m[1]+" "+(m[5]||"")).includes(q));
-  let h=tipo==="Oral"?`<div class="note alert">Nunca recortar el blíster y mantener siempre las fechas. Si hay discrepancia con lo indicado, márcalo y pide reposición a Farmacia en el formulario correspondiente.</div>`:"";
+  const q=norm($("q").value.trim()),oral=tipo==="Oral",src=oral?ORAL:INY;
+  const l=src.filter(m=>{
+    if(q&&!norm(m[1]+" "+(m[5]||"")).includes(q))return false;
+    if(oral||fc==="todos")return true;
+    const v=vd(m);
+    return fc==="alto"?v&&v.r===1:fc==="estup"?v&&v.r===2:catOf(m)===+fc});
+  let h=oral?`<div class="note alert">Nunca recortar el blíster y mantener siempre las fechas. Si hay discrepancia con lo indicado, márcalo y pide reposición a Farmacia en el formulario correspondiente.</div>`:"";
+  const dd=(k,v)=>v?`<dt>${k}</dt><dd>${esc(v)}</dd>`:"";
   h+=l.map(m=>{
-    const i=src.indexOf(m),oral=tipo==="Oral",n=norm(m[1]);
+    const i=src.indexOf(m),n=norm(m[1]),v=oral?null:vd(m);
     const tg=[["Mochila",MOCHILA],["UVI",UVI]].filter(([,c])=>c.some(x=>hit(x[2],n,oral))).map(([t])=>`<span class="tag">${t}</span>`).join("");
     const uds=m[0]?`<span class="n">× ${m[0]}</span>`:"";
-    const btn=`<div class="tags">${tg}<button class="chip loc" data-l="${i}">📍 Dónde está</button></div><div id="lp${i}"></div>`;
-    if(oral)return `<article class="med"><h3>${esc(m[1])}${uds}</h3><small>${esc(m[2])}</small>${btn}</article>`;
+    const loc=`<button class="chip loc" data-l="${i}">📍 Dónde está</button><div id="lp${i}"></div>`;
+    const rk=v&&v.r===1?`<span class="tag hr">ALTO RIESGO</span>`:v&&v.r===2?`<span class="tag es">ESTUPEFACIENTE</span>`:"";
+    const head=`<summary><span class="mn"><b>${esc(m[1])}</b><small>${esc((m[5]?m[5]+" · ":"")+m[2])}</small><span class="bd">${rk}${tg}${uds}</span></span></summary>`;
+    const cls=`med${v&&v.r?" r"+v.r:""}`;
+    if(oral)return `<details class="${cls}">${head}<div class="mb">${loc}</div></details>`;
     const conc=m[3]&&m[4]?`${fmt(m[3]/m[4])} mg/ml`:"—";
-    const D=DOSIS.find(x=>rx(x[0]).test(n));
-    const dd=(k,v)=>v?`<dt>${k}</dt><dd>${esc(v)}</dd>`:"";
-    const info=D?`<dl>${dd("Adulto",D[1])}${dd("Pediátrica",D[2])}${dd("Dilución",D[3])}${dd("Perfusión",D[4])}</dl>${D[5]?`<div class="hi pend"><b>⚠</b> ${esc(D[5])}</div>`:""}`:(m[6]?`<div class="hi"><b>Dilución:</b> ${esc(m[6])}</div>`:`<div class="hi pend">Dilución y dosis: pendiente de protocolo</div>`);
-    return `<article class="med"><h3>${esc(m[1])}${uds}</h3><small>${esc(m[5]||"")}</small>
-    <dl><dt>Presentación</dt><dd>${esc(m[2])}</dd><dt>Concentración</dt><dd>${conc}</dd></dl>${info}${btn}</article>`}).join("");
-  $("listaMed").innerHTML=h||`<p class="empty">Sin resultados para “${esc($("q").value)}”.</p>`;
+    let info="";
+    if(v){
+      info=`<dl>${dd("Indicación",v.i)}${v.d.length?`<dt>Dilución</dt><dd><ul>${v.d.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></dd>`:""}${dd("Adulto",v.a)}${dd("Pediátrica",v.p)}</dl>`;
+      if(!v.a&&!v.p)info+=`<div class="hi pend">La ficha de la guía aportada está cortada en este fármaco: dosis pendientes de completar.</div>`;
+    }else{
+      const D=DOSIS.find(x=>rx(x[0]).test(n));
+      info=D?`<dl>${dd("Adulto",D[1])}${dd("Pediátrica",D[2])}${dd("Dilución",D[3])}${dd("Perfusión",D[4])}</dl>${D[5]?`<div class="hi pend"><b>⚠</b> ${esc(D[5])}</div>`:""}`:(m[6]?`<div class="hi"><b>Dilución:</b> ${esc(m[6])}</div>`:`<div class="hi pend">Dilución y dosis: pendiente de protocolo</div>`);
+    }
+    return `<details class="${cls}"${l.length===1?" open":""}>${head}<div class="mb"><dl><dt>Presentación</dt><dd>${esc(m[2])}</dd><dt>Concentración</dt><dd>${conc}</dd></dl>${info}${loc}</div></details>`}).join("");
+  $("listaMed").innerHTML=h||`<p class="empty">Sin resultados.</p>`;
 }
 function pGuias(){
   $("listaAlg").innerHTML=ALGS.map((a,i)=>`<button class="alg" data-a="${i}"><img alt="" data-a="${i}"><b>${esc(a[0])}</b><small>${esc(a[1])}</small></button>`).join("");
@@ -388,7 +478,6 @@ function pGuias(){
   const bt=(l,k)=>l.map((g,i)=>`<button class="go" data-${k}="${i}"><span class="ic">${k==="g"?"📖":"🔗"}</span><span><b>${esc(g.t)}</b><span class="tags"><span class="tag">${esc(g.d)}</span></span></span></button>`).join("");
   $("listaGuias").innerHTML=bt(GUIAS,"g");$("listaOtros").innerHTML=bt(OTROS,"o");
 }
-
 const CAL=INY.filter(m=>m[3]&&m[4]);
 function pCalc(){$("cFarm").innerHTML=CAL.map((m,i)=>`<option value="${i}">${esc(m[1])} · ${esc(m[2])}</option>`).join("")}
 function calc(){
@@ -406,7 +495,99 @@ function calc(){
   }else if(mg>m[3]*n)h+=`<p><b>⚠ La dosis supera ${n} ampolla(s)</b></p>`;
   $("res").innerHTML=h+"</div>";
 }
-
+/* ---------- Oxígeno ---------- */
+const hm=h=>{const m=Math.round(h*60);return Math.floor(m/60)+" h "+String(m%60).padStart(2,"0")+" min"};
+function o2(){
+  const f=parseFloat($("oF").value),h=parseFloat($("oH").value),cap=parseFloat($("oC").value),bar=parseFloat($("oP").value),mg=Math.max(0,parseFloat($("oM").value)||0),k=+$("oU").value;
+  if(!(f>0)||!(h>0)||!(cap>0)||!(bar>0)){$("oRes").innerHTML=`<p class="empty">Introduce flujo y duración para calcular.</p>`;return}
+  const lmin=k===60?f:f/60,base=lmin*60*h,tot=base*(1+mg/100),por=cap*bar,nb=Math.ceil(tot/por-1e-9);
+  $("oRes").innerHTML=`<div class="res ok"><div>Oxígeno necesario</div><div class="big">${fmt(Math.round(base))} L</div>
+  <p>Con reserva del ${fmt(mg)} %: <b>${fmt(Math.round(tot))} L</b></p><hr style="opacity:.3">
+  <div>Bombonas necesarias</div><div class="big">${nb} × ${fmt(cap)} L</div>
+  <p>Cada bombona a ${fmt(bar)} bar contiene ≈ ${fmt(Math.round(por))} L · autonomía por bombona a ${fmt(Math.round(lmin*10)/10)} L/min: <b>${hm(por/lmin/60)}</b></p>
+  <p>Uso estimado: ${fmt(Math.round(tot/(nb*por)*100))} % de la capacidad de ${nb} bombona(s).</p></div>`;
+}
+/* ---------- Parada: cronómetro + metrónomo ---------- */
+const mmss=ms=>{const s=Math.floor(ms/1000),h=Math.floor(s/3600),m=Math.floor(s%3600/60);return(h?h+":"+String(m).padStart(2,"0"):String(m).padStart(2,"0"))+":"+String(s%60).padStart(2,"0")};
+const hh=t=>new Date(t).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+const CY=120000,CIRC=339.292;
+let C;
+function cNew(){C={run:false,t0:0,acc:0,cyc:0,ev:[],ini:0,fin:0,bpm:+($("bpmR")&&$("bpmR").value)||110,met:true,ctx:null,nt:0,sch:0,tick:0,wl:null}}
+cNew();
+const cEl=()=>C.acc+(C.run?Date.now()-C.t0:0);
+function ac(){if(!C.ctx){const A=window.AudioContext||window.webkitAudioContext;if(A)C.ctx=new A()}if(C.ctx&&C.ctx.state!=="running")C.ctx.resume();return C.ctx}
+function beep(t,f,d,g,ty){const c=C.ctx,o=c.createOscillator(),v=c.createGain();o.type=ty;o.frequency.value=f;v.gain.setValueAtTime(0,t);v.gain.linearRampToValueAtTime(g,t+.004);v.gain.setValueAtTime(g,t+d-.01);v.gain.linearRampToValueAtTime(0,t+d);o.connect(v);v.connect(c.destination);o.start(t);o.stop(t+d+.02)}
+function pulse(){const h=$("ht");h.classList.add("p");setTimeout(()=>h.classList.remove("p"),90)}
+function sched(){const c=C.ctx;if(!c||!C.run)return;while(C.nt<c.currentTime+.2){if(C.met)beep(C.nt,1000,.05,.7,"square");setTimeout(pulse,Math.max(0,(C.nt-c.currentTime)*1000));C.nt+=60/C.bpm}}
+function alarma(){
+  const c=ac();if(c){const t=c.currentTime+.05;for(let k=0;k<10;k++)beep(t+k*.24,k%2?1568:1047,.2,1,"square")}
+  navigator.vibrate&&navigator.vibrate([500,150,500,150,500]);
+  document.body.classList.add("flash");setTimeout(()=>document.body.classList.remove("flash"),3000);
+}
+async function wake(on){try{if(on&&navigator.wakeLock&&!C.wl)C.wl=await navigator.wakeLock.request("screen");else if(!on&&C.wl){await C.wl.release();C.wl=null}}catch(e){C.wl=null}}
+const log=(txt,k)=>C.ev.push({t:cEl(),txt,k});
+function cTick(){
+  const e=cEl(),d=Math.floor(e/CY);
+  while(C.cyc<d){C.cyc++;C.ev.push({t:C.cyc*CY,txt:`Fin del ciclo ${C.cyc} · valorar ritmo`,k:"c"});alarma()}
+  cUI();
+}
+function cUI(){
+  const e=cEl(),r=e%CY;
+  $("tm").textContent=mmss(e);$("nx").textContent=mmss(CY-r);$("cy").textContent=C.cyc;
+  $("rg").style.strokeDashoffset=CIRC*(r/CY);
+  $("dsc").textContent=C.ev.filter(x=>x.k==="s").length;
+  const a=C.ev.filter(x=>x.k==="a").pop();$("lastA").textContent=a?mmss(e-a.t):"—";
+  $("go").textContent=C.run?"❚❚ Pausa":(C.ini?"▶ Reanudar":"▶ Iniciar");$("go").classList.toggle("stop",C.run);
+  $("mt").setAttribute("aria-pressed",C.met);$("mt").textContent=C.met?"🔊":"🔇";
+  $("bpmV").textContent=$("bpmL").textContent=C.bpm;$("bpmR").value=C.bpm;
+}
+function cGo(){
+  if(!C.run){ac();if(!C.ini)C.ini=Date.now();log(C.acc?"Reanudación":"Inicio","i");C.t0=Date.now();C.run=true;C.nt=C.ctx?C.ctx.currentTime+.1:0;C.sch=setInterval(sched,25);C.tick=setInterval(cTick,100);wake(true)}
+  else{C.acc+=Date.now()-C.t0;C.run=false;clearInterval(C.sch);clearInterval(C.tick);log("Pausa","p");wake(false)}
+  cUI();
+}
+function cFin(){
+  if(!C.ini){toast("Aún no has iniciado la parada.");return}
+  if(C.run)cGo();
+  C.fin=Date.now();
+  const e=C.acc,n=k=>C.ev.filter(x=>x.k===k).length,pa=Math.max(0,C.fin-C.ini-e);
+  const rows=C.ev.slice().sort((a,b)=>a.t-b.t).map(x=>[mmss(x.t),x.txt]);
+  const lines=[`RESUMEN DE PARADA · ${new Date(C.ini).toLocaleDateString("es-ES")}`,`Inicio ${hh(C.ini)} · Fin ${hh(C.fin)}`,`Duración (tiempo activo): ${mmss(e)}`,`Ciclos completos de 2 min: ${C.cyc} (+${mmss(e%CY)} del ciclo en curso)`,`Descargas: ${n("s")} · Adrenalina: ${n("a")} · Amiodarona: ${n("m")}`,`Tiempo en pausa: ${mmss(pa)}`,`Compresiones a ${C.bpm}/min (≈ ${Math.round(e/60000*C.bpm)} en total, estimado)`,"","Cronología:",...rows.map(r=>r[0]+"  "+r[1])];
+  C.txt=lines.join("\n");
+  $("cprSum").innerHTML=`<h2>Resumen de la parada</h2><div class="kv"><div><b>${mmss(e)}</b>duración activa</div><div><b>${C.cyc}</b>ciclos completos</div><div><b>${n("s")}</b>descargas</div><div><b>${n("a")} / ${n("m")}</b>adrenalina / amiodarona</div></div>
+  <p class="lt">Inicio ${hh(C.ini)} · Fin ${hh(C.fin)} · Ciclo en curso ${mmss(e%CY)} · En pausa ${mmss(pa)}</p><table>${rows.map(r=>`<tr><td>${r[0]}</td><td>${esc(r[1])}</td></tr>`).join("")}</table>
+  <div class="btns" style="margin-top:12px"><button class="big-b ev" id="sCp">📋 Copiar / compartir</button><button class="big-b" id="sNw">Nueva parada</button></div>`;
+  $("cprMain").hidden=true;$("cprSum").hidden=false;
+}
+function cEvt(k){
+  if(!C.run){toast("Inicia el cronómetro para registrar eventos.");return}
+  const t={s:"Descarga",a:"Adrenalina",m:"Amiodarona"}[k],n=C.ev.filter(x=>x.k===k).length+1;
+  log(`${t} #${n}`,k);navigator.vibrate&&navigator.vibrate(60);toast(`${t} #${n} · ${mmss(cEl())}`);cUI();
+}
+$("go").onclick=cGo;$("fin").onclick=cFin;
+document.querySelector(".evs").onclick=e=>{const b=e.target.closest("[data-e]");if(b)cEvt(b.dataset.e)};
+$("bpmR").oninput=e=>{C.bpm=+e.target.value;cUI()};
+$("bm").onclick=()=>{C.bpm=Math.max(100,C.bpm-1);cUI()};$("bp").onclick=()=>{C.bpm=Math.min(120,C.bpm+1);cUI()};
+$("mt").onclick=()=>{C.met=!C.met;cUI()};
+$("cprSum").onclick=async e=>{
+  if(e.target.id==="sNw"){if(confirm("¿Borrar el resumen y empezar una parada nueva?")){cNew();$("cprSum").hidden=true;$("cprMain").hidden=false;cUI()}}
+  if(e.target.id==="sCp"){try{if(navigator.share)await navigator.share({text:C.txt});else{await navigator.clipboard.writeText(C.txt);toast("Resumen copiado")}}catch(x){}}
+};
+document.addEventListener("visibilitychange",()=>{if(!document.hidden&&C.run){cTick();wake(true)}});
+addEventListener("beforeunload",e=>{if(C.ini&&!C.fin){e.preventDefault();e.returnValue=""}});
+/* ---------- Navegación ---------- */
+function show(t){
+  if(!SECS[t])t="revisiones";
+  document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-selected",x.dataset.t===t));
+  document.querySelectorAll("main>section").forEach(s=>s.classList.toggle("on",s.id===t));
+  $("ttl").textContent=SECS[t][0];$("sub").textContent=SECS[t][1];
+  $("hoy").textContent=t==="revisiones"?DL[HOY]:"";$("hoy").style.display=t==="revisiones"?"":"none";
+  scrollTo(0,0);
+}
+document.querySelector("nav").onclick=e=>{const b=e.target.closest("[data-t]");if(b&&location.hash.slice(1)!==b.dataset.t)location.hash=b.dataset.t;else if(b)scrollTo({top:0,behavior:"smooth"})};
+$("hTabs").onclick=e=>{const b=e.target.closest("[data-h]");if(!b)return;
+  $("hTabs").querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));
+  ["dosis","o2","cpr"].forEach(h=>$("h-"+h).hidden=h!==b.dataset.h)};
 $("dias").onclick=e=>{const b=e.target.closest("[data-d]");if(!b)return;dia=+b.dataset.d;pDias();pRev()};
 $("profs").onclick=e=>{const b=e.target.closest("[data-p]");if(!b)return;prof=b.dataset.p;pProfs();pRev()};
 $("listaRev").onclick=e=>{const b=e.target.closest("[data-i]");if(b)abrir(F+REV[+b.dataset.i][4])};
@@ -414,23 +595,20 @@ $("listaGuias").onclick=e=>{const b=e.target.closest("[data-g]");if(b)abrir(GUIA
 $("listaOtros").onclick=e=>{const b=e.target.closest("[data-o]");if(b)abrir(OTROS[+b.dataset.o].e)};
 $("listaAlg").onclick=e=>{const b=e.target.closest("[data-a]");if(b)visor(ALGIMG[+b.dataset.a],ALGS[+b.dataset.a][0])};
 $("tipoMed").onclick=e=>{const b=e.target.closest("[data-m]");if(!b)return;tipo=b.dataset.m;pTipo();pMed()};
+$("catMed").onclick=e=>{const b=e.target.closest("[data-c]");if(!b)return;fc=b.dataset.c;pTipo();pMed()};
 $("q").oninput=pMed;
 $("listaMed").onclick=e=>{const b=e.target.closest("[data-l]");if(!b)return;const p=$("lp"+b.dataset.l);if(p.innerHTML){p.innerHTML="";return}p.innerHTML=panel((tipo==="Oral"?ORAL:INY)[+b.dataset.l],tipo==="Oral")};
 ["cFarm","cModo","cDosis","cUni","cPeso","cN","cV"].forEach(id=>$(id).addEventListener("input",calc));
-document.querySelector("nav").onclick=e=>{
-  const b=e.target.closest("[data-t]");if(!b)return;
-  document.querySelectorAll("nav button").forEach(x=>x.setAttribute("aria-selected",x===b));
-  document.querySelectorAll("section").forEach(s=>s.classList.toggle("on",s.id===b.dataset.t));
-  if(b.dataset.t==="medicacion")$("q").focus();
-};
-/* Visor con zoom: pellizcar, rueda, doble toque, + / − */
-const vb=$("vbox"),vi=$("vimg"),P=new Map();let z={s:1,x:0,y:0},zmin=.1,zmax=1.5,pd=0;
+["oF","oU","oH","oC","oP","oM"].forEach(id=>$(id).addEventListener("input",o2));
+/* ---------- Visor (solo pellizcar, rueda y doble toque) ---------- */
+const vb=$("vbox"),vi=$("vimg"),P=new Map();let z={s:1,x:0,y:0},zmin=.1,zmax=1.5,pd=0,vOpen=false;
 const draw=()=>vi.style.transform=`translate(${z.x}px,${z.y}px) scale(${z.s})`;
 const s0=()=>Math.min(vb.clientWidth/vi.naturalWidth,vb.clientHeight/vi.naturalHeight);
 function fit(){if(!vi.naturalWidth)return;const s=s0();zmin=s*.9;zmax=Math.max(1.5,s*6);z={s,x:(vb.clientWidth-vi.naturalWidth*s)/2,y:(vb.clientHeight-vi.naturalHeight*s)/2};draw()}
 function zoomAt(cx,cy,ns){const r=vb.getBoundingClientRect();cx-=r.left;cy-=r.top;ns=Math.min(zmax,Math.max(zmin,ns));z.x=cx-(cx-z.x)*ns/z.s;z.y=cy-(cy-z.y)*ns/z.s;z.s=ns;draw()}
-function visor(src,t){$("vtit").textContent=t;$("visor").style.display="flex";vi.onload=fit;vi.src=src;if(vi.complete)fit()}
-const ctr=()=>{const r=vb.getBoundingClientRect();return[r.left+r.width/2,r.top+r.height/2]};
+function visor(src,t){$("vtit").textContent=t;$("visor").style.display="flex";vOpen=true;history.pushState({v:1},"");vi.onload=fit;vi.src=src;if(vi.complete)fit();
+  const h=$("vhint");h.style.opacity=1;setTimeout(()=>h.style.opacity=0,2800)}
+function cerrar(){if(vOpen){vOpen=false;$("visor").style.display="none"}}
 const dist=()=>{const a=[...P.values()];return a.length<2?0:Math.hypot(a[0][0]-a[1][0],a[0][1]-a[1][1])};
 vb.onpointerdown=e=>{vb.setPointerCapture(e.pointerId);P.set(e.pointerId,[e.clientX,e.clientY]);pd=dist()};
 vb.onpointermove=e=>{const o=P.get(e.pointerId);if(!o)return;P.set(e.pointerId,[e.clientX,e.clientY]);
@@ -439,10 +617,12 @@ vb.onpointermove=e=>{const o=P.get(e.pointerId);if(!o)return;P.set(e.pointerId,[
 vb.onpointerup=vb.onpointercancel=e=>{P.delete(e.pointerId);pd=dist()};
 vb.onwheel=e=>{e.preventDefault();zoomAt(e.clientX,e.clientY,z.s*(e.deltaY<0?1.2:1/1.2))};
 vb.ondblclick=e=>{z.s>s0()*1.5?fit():zoomAt(e.clientX,e.clientY,s0()*3)};
-$("vp").onclick=()=>zoomAt(...ctr(),z.s*1.4);$("vm").onclick=()=>zoomAt(...ctr(),z.s/1.4);$("vf").onclick=fit;
-$("vx").onclick=()=>{$("visor").style.display="none"};
-document.addEventListener("keydown",e=>{if(e.key==="Escape")$("vx").onclick()});
-pDias();pProfs();pRev();pTipo();pMed();pGuias();pCalc();calc();
+$("vx").onclick=()=>{if(vOpen)history.back()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&vOpen)history.back()});
+addEventListener("popstate",()=>{cerrar()});
+addEventListener("hashchange",()=>{cerrar();show(location.hash.slice(1))});
+pDias();pProfs();pRev();pTipo();pMed();pGuias();pCalc();calc();o2();cUI();show(location.hash.slice(1));
+
 </script>
 <script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
 </body>
