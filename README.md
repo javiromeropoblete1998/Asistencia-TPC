@@ -8,4 +8,9 @@ App web instalable (PWA) para traslado de pacientes críticos: revisiones por d�
 3. Abre `https://TU-USUARIO.github.io/NOMBRE-REPO/` desde el móvil y elige «Añadir a pantalla de inicio».
 
 ## Actualizar
-Tras cualquier cambio en `index.html`, guías o iconos, sube el número de `VERSION` en `sw.js` (`tpc-v7` → `tpc-v8`) para que los móviles descarguen la versión nueva.
+Tras cualquier cambio en `index.html`, guías o iconos, sube el número de `VERSION` en `sw.js` (`tpc-v8` → `tpc-v9`) para que los móviles descarguen la versión nueva.
+
+## Pantalla de inicio
+- Saludo según la hora, fondo que cambia (mañana, tarde, atardecer, noche) y la UVI integrada en la escena.
+- Perfil (nombre y profesión), accesos rápidos y buscador se guardan solo en el móvil (`localStorage`: `tpc-perfil`, `tpc-accesos`, `tpc-busq`).
+- Para cambiar el catálogo de accesos o las palabras clave del buscador, edita `ACC`, `AKW` y `GKW` en `index.html`.
