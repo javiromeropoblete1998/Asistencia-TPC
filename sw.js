@@ -1,6 +1,6 @@
 /* Asistencia TPC · funcionamiento sin conexión.
    Si cambias las guías o los iconos, sube el número de VERSION para que los móviles los vuelvan a descargar. */
-const VERSION = "tpc-v3";
+const VERSION = "tpc-v5";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
 const PDFS = [
   "guias/ERC2025-05-Soporte-vital-avanzado.pdf",
@@ -34,7 +34,8 @@ const conTiempo = (req, ms) => new Promise((ok, no) => {
 self.addEventListener("fetch", e => {
   const req = e.request;
   if (req.method !== "GET" || new URL(req.url).origin !== location.origin) return;
-  if (req.mode === "navigate") {
+  const esPdf = /\.pdf$/i.test(new URL(req.url).pathname);
+  if (req.mode === "navigate" && !esPdf) {   // los PDF (también dentro de un iframe) van por la rama de copia guardada, para no machacar index.html
     // la página: primero la red (así se ven las actualizaciones); sin conexión, la copia guardada
     e.respondWith(conTiempo(req, 3000).then(res => {
       const copia = res.clone();
